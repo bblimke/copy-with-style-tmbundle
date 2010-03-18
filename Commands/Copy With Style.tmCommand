@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>ruby -e'
+  require "jcode"
+  $KCODE="U"
+  require "#{ENV["TM_APP_PATH"]}/Contents/SharedSupport/Bundles/TextMate.tmbundle/Support/lib/doctohtml.rb"
+  require "#{ENV["TM_APP_PATH"]}/Contents/SharedSupport/Support/lib/progress.rb"
+  unit = ENV.has_key?("TM_SELECTED_TEXT") ? "selection" : "document"
+  TextMate.call_with_progress(:message => "Creating HTML version of #{unit}…") do
+    print document_to_html( STDIN.read, :include_css => true )
+  end'|textutil -convert rtf -stdin -stdout|pbcopy
+  echo 'Done!'</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>inputFormat</key>
+	<string>xml</string>
+	<key>keyEquivalent</key>
+	<string>@C</string>
+	<key>name</key>
+	<string>Copy with Style</string>
+	<key>output</key>
+	<string>openAsNewDocument</string>
+	<key>uuid</key>
+	<string>BAAC7FD1-DC7C-4F18-AAD9-EFA93585451B</string>
+</dict>
+</plist>
