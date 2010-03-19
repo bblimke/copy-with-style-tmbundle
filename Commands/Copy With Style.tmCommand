@@ -8,8 +8,9 @@
 	<string>ruby -e'
   require "jcode"
   $KCODE="U"
-  require "#{ENV["TM_APP_PATH"]}/Contents/SharedSupport/Bundles/TextMate.tmbundle/Support/lib/doctohtml.rb"
-  require "#{ENV["TM_APP_PATH"]}/Contents/SharedSupport/Support/lib/progress.rb"
+  app_path = ENV["TM_APP_PATH"] || %x{ps -xwwp "$TM_PID" -o "command="}.sub(%r{/Contents/MacOS/.*\n}, "")
+  require "#{app_path}/Contents/SharedSupport/Bundles/TextMate.tmbundle/Support/lib/doctohtml.rb"
+  require "#{app_path}/Contents/SharedSupport/Support/lib/progress.rb"
   unit = ENV.has_key?("TM_SELECTED_TEXT") ? "selection" : "document"
   TextMate.call_with_progress(:message => "Creating HTML version of #{unit}…") do
     print document_to_html( STDIN.read, :include_css => true )
