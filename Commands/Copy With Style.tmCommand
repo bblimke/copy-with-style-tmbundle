@@ -12,8 +12,8 @@
   require "#{app_path}/Contents/SharedSupport/Bundles/TextMate.tmbundle/Support/lib/doctohtml.rb"
   require "#{app_path}/Contents/SharedSupport/Support/lib/progress.rb"
   unit = ENV.has_key?("TM_SELECTED_TEXT") ? "selection" : "document"
-  TextMate.call_with_progress(:message => "Creating HTML version of #{unit}…") do
-    print document_to_html( STDIN.read, :include_css => true )
+  TextMate.call_with_progress(:message =&gt; "Creating HTML version of #{unit}…") do
+    print document_to_html( STDIN.read, :include_css =&gt; true )
   end'|textutil -convert rtf -stdin -stdout|pbcopy
   echo 'Done!'</string>
 	<key>input</key>
@@ -25,7 +25,7 @@
 	<key>name</key>
 	<string>Copy with Style</string>
 	<key>output</key>
-	<string>openAsNewDocument</string>
+	<string>showAsTooltip</string>
 	<key>uuid</key>
 	<string>BAAC7FD1-DC7C-4F18-AAD9-EFA93585451B</string>
 </dict>
